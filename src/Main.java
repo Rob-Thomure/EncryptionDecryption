@@ -3,25 +3,23 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        String encDec = scanner.nextLine();
         String text = scanner.nextLine();
         int key = scanner.nextInt();
-        String encryptedText = encrypt(text, key);
-        System.out.println(encryptedText);
+        System.out.println(encryptDecrypt(encDec, text, key));
     }
 
-    public static String encrypt(String text, int key) {
+
+
+    public static String encryptDecrypt(String encDec, String text, int key) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < text.length(); i++) {
-            if (Character.isLetter(text.charAt(i))) {
-                if (text.charAt(i) + key > 122) {
-                    stringBuilder.append((char) ((text.charAt(i) + key) % 122 + 96));
-                } else {
-                    stringBuilder.append((char) (text.charAt(i) + key));
-                }
-
+            if (encDec.equals("enc")) {
+                stringBuilder.append((char)  (text.charAt(i) + key));
             } else {
-                stringBuilder.append(text.charAt(i));
+                stringBuilder.append((char)  (text.charAt(i) - key));
             }
+
         }
         return stringBuilder.toString();
     }
