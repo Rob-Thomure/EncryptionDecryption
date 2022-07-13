@@ -1,11 +1,26 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String encDec = scanner.nextLine();
-        String text = scanner.nextLine();
-        int key = scanner.nextInt();
+        String encDec;
+        String text;
+        int key;
+        if (args.length == 0) {
+            Scanner scanner = new Scanner(System.in);
+            encDec = scanner.nextLine();
+            text = scanner.nextLine();
+            key = scanner.nextInt();
+        } else {
+            Map<String, String> commandLineArgs = new HashMap<>();
+            for (int i = 0; i < args.length - 1; i += 2) {
+                commandLineArgs.put(args[i], args[i + 1]);
+            }
+            encDec = commandLineArgs.getOrDefault("-mode", "enc");
+            text = commandLineArgs.getOrDefault("-data", "");
+            key = Integer.parseInt(commandLineArgs.getOrDefault("-key", "0"));
+        }
         System.out.println(encryptDecrypt(encDec, text, key));
     }
 
