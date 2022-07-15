@@ -10,6 +10,7 @@ public class CommandLineInput {
     private int key;
     private String data;
     private String out;
+    private String algorithm;
 
 
     private final Map<String, String> commandLineArgs;
@@ -31,7 +32,8 @@ public class CommandLineInput {
                     "-out".equals(args[i + 1]) ||
                     "-mode".equals(args[i + 1]) ||
                     "-key".equals(args[i + 1]) ||
-                    "-data".equals(args[i + 1])) {
+                    "-data".equals(args[i + 1]) ||
+                    "-alg".equals(args[i + 1])) {
                 System.out.printf("argument %s is missing a value%n", args[i]);
                 return false;
             }
@@ -43,6 +45,7 @@ public class CommandLineInput {
         mode = commandLineArgs.getOrDefault("-mode", "enc");
         key = Integer.parseInt(commandLineArgs.getOrDefault("-key", "0"));
         out = commandLineArgs.getOrDefault("-out", "");
+        algorithm = commandLineArgs.getOrDefault("-alg", "shift");
         if (!commandLineArgs.containsKey("-data") && !commandLineArgs.containsKey("-in")) {
             data = "";
         } else if (commandLineArgs.containsKey("-data")) {
@@ -72,5 +75,9 @@ public class CommandLineInput {
 
     public String getOut() {
         return out;
+    }
+
+    public String getAlgorithm() {
+        return algorithm;
     }
 }
